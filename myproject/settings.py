@@ -12,8 +12,8 @@ env = environ.Env(
 environ.Env.read_env()
 
 # Reading SECRET_KEY
-SECRET_KEY = env('SECRET_KEY')
 # SECRET_KEY = 'django-insecure-w8ylo#6_&h3^d7l^)akql2g=92)4!d)p#=9uej)02h6hays%#0'
+SECRET_KEY = env('SECRET_KEY')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,7 +29,9 @@ SECRET_KEY = 'django-insecure-w8ylo#6_&h3^d7l^)akql2g=92)4!d)p#=9uej)02h6hays%#0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
+
 
 
 # Application definition
