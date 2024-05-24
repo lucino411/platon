@@ -11,11 +11,6 @@ env = environ.Env(
 # Take environment variables from .env file
 environ.Env.read_env()
 
-# Reading SECRET_KEY
-# SECRET_KEY = 'django-insecure-w8ylo#6_&h3^d7l^)akql2g=92)4!d)p#=9uej)02h6hays%#0'
-SECRET_KEY = env('SECRET_KEY')
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,20 +18,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+# Reading SECRET_KEY
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w8ylo#6_&h3^d7l^)akql2g=92)4!d)p#=9uej)02h6hays%#0'
+# SECRET_KEY = 'django-insecure-w8ylo#6_&h3^d7l^)akql2g=92)4!d)p#=9uej)02h6hays%#0'
+# SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+print("Valor de SECRET_KEY:", SECRET_KEY)  # Agrega esta línea para imprimir el valor
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
+# DEBUG = True
 DEBUG = env.bool('DEBUG', False)
-
+print("Valor DEBUG:", DEBUG)  # Agrega esta línea para imprimir el valor
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
+print("Valor de ALLOWED_HOSTS:", ALLOWED_HOSTS)  # Agrega esta línea para imprimir el valor
+
+print("Variables de entorno:", os.environ)
 
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
