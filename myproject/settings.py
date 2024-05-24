@@ -1,4 +1,5 @@
 import os
+from django.core.management.utils import get_random_secret_key
 from pathlib import Path
 import environ
 
@@ -22,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-w8ylo#6_&h3^d7l^)akql2g=92)4!d)p#=9uej)02h6hays%#0'
 # SECRET_KEY = env('SECRET_KEY')
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', get_random_secret_key())
 print("Valor de SECRET_KEY:", SECRET_KEY)  # Agrega esta línea para imprimir el valor
 
 # SECURITY WARNING: don't run with debug turned on in production!
