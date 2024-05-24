@@ -1,18 +1,19 @@
 import os
 from pathlib import Path
-import environ
+# import environ
 
 # Initialize environ
-env = environ.Env(
-    # Set casting, default value
-    DEBUG=(bool, False)
-)
+# env = environ.Env(
+#     # Set casting, default value
+#     DEBUG=(bool, False)
+# )
 
 # Take environment variables from .env file
-environ.Env.read_env()
+# environ.Env.read_env()
 
 # Reading SECRET_KEY
-SECRET_KEY = env('SECRET_KEY')
+# SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'django-insecure-w8ylo#6_&h3^d7l^)akql2g=92)4!d)p#=9uej)02h6hays%#0'
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
