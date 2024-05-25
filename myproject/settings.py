@@ -1,7 +1,9 @@
-import os
 from django.core.management.utils import get_random_secret_key
 from pathlib import Path
+import os
 import environ
+import dj_database_url
+
 
 # Initialize environ
 env = environ.Env(
@@ -24,17 +26,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = 'django-insecure-w8ylo#6_&h3^d7l^)akql2g=92)4!d)p#=9uej)02h6hays%#0'
 # SECRET_KEY = env('SECRET_KEY')
 SECRET_KEY = os.environ.get('SECRET_KEY', get_random_secret_key())
-print("Valor de SECRET_KEY:", SECRET_KEY)  # Agrega esta línea para imprimir el valor
+# print("Valor de SECRET_KEY:", SECRET_KEY)  # Agrega esta línea para imprimir el valor
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 DEBUG = env.bool('DEBUG', False)
-print("Valor DEBUG:", DEBUG)  # Agrega esta línea para imprimir el valor
+# print("Valor DEBUG:", DEBUG)  # Agrega esta línea para imprimir el valor
 # ALLOWED_HOSTS = ['*']
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
-print("Valor de ALLOWED_HOSTS:", ALLOWED_HOSTS)  # Agrega esta línea para imprimir el valor
+# print("Valor de ALLOWED_HOSTS:", ALLOWED_HOSTS)  # Agrega esta línea para imprimir el valor
 
-print("Variables de entorno:", os.environ)
+# print("Variables de entorno:", os.environ)
 
 
 
@@ -84,12 +86,31 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# DATABASES = {
+#     # 'default': dj_database_url.config(default=env('DATABASE_URL'))
+#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+#     # 'default': dj_database_url.parse(os.environ.get('DATABASE_URL')),
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.environ.get('DB_ENGINE', default='django.db.backends.postgresql_psycopg2'),
+        'NAME': os.environ.get('DB_NAME', default=''),
+        'USER': os.environ.get('DB_USER', default=''),
+        'PASSWORD': os.environ.get('DB_PASSWORD', default=''),
+        'HOST': os.environ.get('DB_HOST', default=''),
+        'PORT': os.environ.get('DB_PORT', default=''),
     }
 }
+
 
 
 # Password validation
